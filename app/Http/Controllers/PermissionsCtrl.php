@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Permission;
 
 class PermissionsCtrl extends Controller
 {
@@ -11,7 +12,8 @@ class PermissionsCtrl extends Controller
      */
     public function index()
     {
-        return view("permissions/view");
+        $data = Permission::all();
+        return view("permissions/view", ["allpermissions" => $data]);
     }
 
     /**
@@ -27,7 +29,10 @@ class PermissionsCtrl extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Permission::create([
+            'name' => $request->name,
+        ]);
+        return redirect('permissions');
     }
 
     /**
@@ -43,23 +48,28 @@ class PermissionsCtrl extends Controller
      */
     public function edit(string $id)
     {
-        return view("permissions/update");
-
+        $perm = Permission::findOrFail($id);
+        return view("permissions/update", ['perm' => $perm]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Permission $permission)
     {
-        //
+
+        $permission->update([
+            'name' => $request->name,
+        ]);
+        return redirect('permissions');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Permission $permission)
     {
-        //
+        $permission->delete();
+        return redirect('permissions');
     }
 }

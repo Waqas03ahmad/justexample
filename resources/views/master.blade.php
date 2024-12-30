@@ -26,7 +26,7 @@
         <aside class="bg-blue-700 text-white w-full md:w-1/4 lg:w-1/5 hidden md:block">
             <div class="p-4 space-y-4">
                 <a href="{{route('permissions.index')}}" class="block py-2 px-4 hover:bg-blue-600 rounded">Permissions</a>
-                <a href="#" class="block py-2 px-4 hover:bg-blue-600 rounded">Roles</a>
+                <a href="{{route('roles.index')}}" class="block py-2 px-4 hover:bg-blue-600 rounded">Roles</a>
                 <a href="#" class="block py-2 px-4 hover:bg-blue-600 rounded">Products</a>
                 <a href="#" class="block py-2 px-4 hover:bg-blue-600 rounded">Settings</a>
                 <a href="#" class="block py-2 px-4 hover:bg-blue-600 rounded">Reports</a>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 
 class RolesCtrl extends Controller
 {
@@ -11,7 +12,8 @@ class RolesCtrl extends Controller
      */
     public function index()
     {
-        //
+        $data = Role::all();
+        return view("roles/view", ["allRole" => $data]);
     }
 
     /**
@@ -19,7 +21,7 @@ class RolesCtrl extends Controller
      */
     public function create()
     {
-        //
+        return view("roles/create");
     }
 
     /**
@@ -27,7 +29,10 @@ class RolesCtrl extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Role::create([
+            'name' => $request->name,
+        ]);
+        return redirect('roles');
     }
 
     /**
@@ -41,24 +46,28 @@ class RolesCtrl extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Role $role)
     {
-        //
+        return view("roles/update", ['role' => $role]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Role $role)
     {
-        //
+        $role->update([
+            'name' => $request->name,
+        ]);
+        return redirect('roles');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Role $role)
     {
-        //
+        $role->delete();
+        return redirect('roles');
     }
 }

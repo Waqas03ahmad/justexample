@@ -26,17 +26,26 @@
                 </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
-                <tr>
-                    <td class="px-6 py-4 whitespace-nowrap">1</td>
-                    <td class="px-6 py-4 whitespace-nowrap">jane@example.com</td>
+                @foreach ($allpermissions as $item)
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ $item->id }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ $item->name }}</td>
 
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        <a href="{{ route('permissions.edit', 1001) }}"
-                            class="px-4 py-2 font-medium text-white bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:shadow-outline-blue active:bg-blue-600 transition duration-150 ease-in-out">Edit</a>
-                        <button
-                            class="ml-2 px-4 py-2 font-medium text-white bg-red-600 rounded-md hover:bg-red-500 focus:outline-none focus:shadow-outline-red active:bg-red-600 transition duration-150 ease-in-out">Delete</button>
-                    </td>
-                </tr>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <a href="{{ route('permissions.edit', $item->id) }}"
+                                class="px-4 py-2 font-medium text-white bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:shadow-outline-blue active:bg-blue-600 transition duration-150 ease-in-out">Edit</a>
+
+                            <form action="{{ route('permissions.destroy', $item->id) }}" method="POST"
+                                style="display: inline-block;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit"
+                                    class="ml-2 cursor-pointer px-4 py-2 font-medium text-white bg-red-600 rounded-md hover:bg-red-500 focus:outline-none focus:shadow-outline-red active:bg-red-600 transition duration-150 ease-in-out">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
+
 
             </tbody>
         </table>
